@@ -1,14 +1,18 @@
-Elsparkcykel-uthyrningssystem 🛴
+# 🛴 Scooter Rental System
 
-Detta projekt är ett elsparkcykel-uthyrningssystem, inspirerat av tjänster som Voi och Lime.
-Systemet är utvecklat i Python med objektorienterad programmering, använder PostgreSQL för datalagring och körs i Docker.
+A containerized scooter rental system built with Python, Docker, and PostgreSQL.  
+This project was developed as part of a Programming course, with a strong focus on **Object-Oriented Programming**, **clean architecture**, **testing**, and **professional project structure**.
 
-Projektet är genomfört som en del av kursen Programmering nivå 2 och fokuserar på:
+---
 
-Objektorienterad programmering (OOP)
+## 📌 Overview
 
-Databaskopplingar och SQL
+The system allows users to:
+- Register and manage users
+- Add and manage electric scooters
+- Start and end trips
+- Automatically calculate trip cost
+- Persist all data in a relational database
+- Run the entire system using Docker
 
-Docker och docker-compose
-
-Testning
+---
