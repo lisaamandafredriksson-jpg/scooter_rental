@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database Container
+  db:
+    image: postgres:16
+    container_name: scooter_rental_db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: scooter_app
+    volumes:
+      # Kör database.sql automatiskt vid första start
+      - ./app/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      # Persistent storage (data sparas mellan omstarter)
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d scooter_app"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - scooter_network
+
+  # Python Application Container
+  app:
+    build: ./app
+    container_name: scooter_rental_app
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: admin
+      DB_PASSWORD: password123
+      DB_NAME: scooter_app
+    volumes:
+      # Mappa lokal app-mapp till container (för utveckling)
+      - ./app:/app
+    stdin_open: true    # Tillåter interaktiv input
+    tty: true           # Tillåter terminal-koppling
+    networks:
+      - scooter_network
+
+# Persistent volume för databasdata
+volumes:
+  db_data:
+
+# Nätverk så containers kan prata med varandra
+networks:
+  scooter_network:
+    driver: bridge

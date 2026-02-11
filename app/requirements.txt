@@ -1,0 +1,6 @@
+# PostgreSQL-adapter för Python
+psycopg2-binary==2.9.9
+
+# Valfria paket för högre betyg (kommentera bort om du inte använder dem)
+# python-dotenv==1.0.0      # För miljövariabler (.env-fil)
+# pytest==7.4.3             # För enhetstester
